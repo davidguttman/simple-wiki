@@ -2,11 +2,9 @@
 
 mysql = require 'mysql'
 
-###
-module.exports = (opts={}) ->
-  me = new wikiDB(opts)
+module.exports = (creds={}) ->
+  me = new wikiDB(creds)
   return me
-###
 
 
 class wikiDB
@@ -49,4 +47,18 @@ class wikiDB
         return cb err
       cb null, result
 
-module.exports = wikiDB
+###
+  getDocument: (data, cb) ->
+    if data?
+      sql = 'SELECT * FROM documents WHERE '
+      for handle, value of data
+        sql += handle+'="'+value+'"'
+    else
+      sql = 'SELECT * FROM documents'
+
+    @db.query(sql, (err, result) ->
+      if err
+        return cb err
+      cb null, result
+
+###

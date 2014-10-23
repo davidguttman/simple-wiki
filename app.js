@@ -66,18 +66,26 @@ app.get('/api/document/create', function(req, res){
   data.handle = "test";
   data.content = "test123";
   result = conn.createDocument(data, function(err){
-    res.send(err);
+    if( err ){
+      res.send(err);
+    } else {
+      msg = 'Added ' + result.affectedRows + ' rows.';
+      res.send(msg);
+    }
   });
-  msg = 'Added ' + result.affectedRows + ' rows.';
-  res.send(msg);
 });
 
 app.get('/api/document/get', function(req, res){
   //data = req.body;
   data = {};
   data.handle = "test";
-  result = conn.getDocument(data);
-  res.send(result);
+  result = conn.getDocument(data, function(err, result){
+    if( err ){
+      res.send(err);
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 // The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:

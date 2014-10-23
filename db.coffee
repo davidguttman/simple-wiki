@@ -2,9 +2,11 @@
 
 mysql = require 'mysql'
 
+###
 module.exports = (opts={}) ->
   me = new wikiDB(opts)
   return me
+###
 
 
 class wikiDB
@@ -39,3 +41,12 @@ class wikiDB
         return cb err
       cb null, result
 
+  updateDocument: (data, cb) ->
+    sql = 'INSERT INTO documents SET ?'
+  
+    @db.query sql, data, (err, result) ->
+      if err
+        return cb err
+      cb null, result
+
+module.exports = wikiDB

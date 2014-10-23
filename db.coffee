@@ -30,7 +30,7 @@ class wikiDB
       else
         return result
 
-  addDocument: (data, cb) ->
+  createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'
   
     @db.query sql, data, (err, result) ->

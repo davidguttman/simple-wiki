@@ -29,5 +29,11 @@ class wikiDB
       if err
         console.log err
 
-  #addDoc: ->
+  addDocument: (data, cb) ->
+    sql = 'INSERT INTO documents SET ?'
+  
+    @db.query sql, data, (err, result) ->
+      if err
+        return cb err
+      cb null, result
 

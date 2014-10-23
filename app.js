@@ -27,9 +27,7 @@ app.get('/', function(req, res){
 app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}");
   if( typeof(services['mysql-5.5']) != 'undefined' ){
-    res.send('TESET');
-  } else {
-    
+    res.send( services['mysql-5.5.'] );
   }
 });
 

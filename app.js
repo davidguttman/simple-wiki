@@ -1,5 +1,8 @@
 /*jshint node:true*/
 
+//require('coffeescript/register');
+//var db = require './db.coffee'
+
 // app.js
 // This file contains the server side JavaScript code for your application.
 // This sample application uses express as web application framework (http://expressjs.com/),
@@ -22,7 +25,10 @@ app.get('/', function(req, res){
 });
 
 app.get('/services', function(req, res){
-  res.send(JSON.parse(process.env.VCAP_SERVICES || "{}"))
+  services = JSON.parse(process.env.VCAP_SERVICES || "{}"))
+  if( typeof(services['mysql-5.5']) != 'undefined' ){
+    res.send('TESET');
+  }
 });
 
 // There are many useful environment variables available in process.env.

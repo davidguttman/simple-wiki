@@ -65,7 +65,7 @@ app.get('/api/document/create', function(req, res){
   data = {};
   data.handle = "test";
   data.content = "test123";
-  result = conn.createDocument(data, function(err){
+  result = conn.createDocument(data, function(err, result){
     if( err ){
       res.send(err);
     } else {

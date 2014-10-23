@@ -28,25 +28,21 @@ app.get('/', function(req, res){
 });
 
 app.get('/api/documents', function(req, res) {
-  var data = [
-      'Two Bit Circus'
-    , 'Brent Bushnell'
-    , 'Eric Gradman'
-    , 'Dan Busby'
-    , 'Hector Alvarez'
-  ]
-  res.json(data)
+  fs.readDir(__dirname + '/md', function(err, files) {
+    var names = files.map(function(file) {file.replace(/\.md$/, '')})
+    res.json(names)
+  })
 })
 
 app.get('/api/documents/:name', function(req, res) {
-  if (req.params.name !== 'Two Bit Circus') {
-    res.json({})
-  } else {
-    fs.readFile(__dirname + '/2bc.md', function(err, buf) {
+  fs.readFile(__dirname + '/md/'+req.params.name + '.md', function(err, buf) {
+    if (buf) {
       var data = {markdown: buf.toString()}
       res.json(data)
-    })
-  }
+    } else {
+      res.json({})
+    }
+  })
 
 })
 

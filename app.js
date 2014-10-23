@@ -1,7 +1,7 @@
 /*jshint node:true*/
 
 require('coffee-script/register');
-var db = require './db.coffee'
+var db = require ('./db.coffee');
 
 // app.js
 // This file contains the server side JavaScript code for your application.
@@ -25,7 +25,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/services', function(req, res){
-  services = JSON.parse(process.env.VCAP_SERVICES || "{}"))
+  services = JSON.parse(process.env.VCAP_SERVICES || "{}");
   if( typeof(services['mysql-5.5']) != 'undefined' ){
     res.send('TESET');
   } else {

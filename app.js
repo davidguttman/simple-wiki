@@ -57,7 +57,7 @@ if( typeof(services['mysql-5.5']) != 'undefined' ){
 conn = new db(creds);
 app.get('/api/init', function(req, res){
   result = conn.createTable();
-  //res.send(result);
+  res.send('success?');
 });
 
 app.post('/api/document/create', function(req, res){
@@ -66,6 +66,7 @@ app.post('/api/document/create', function(req, res){
   data.handle = "test";
   data.content = "test123";
   conn.createDocument(data);
+  res.send('success?');
 });
 
 app.get('/api/document/get', function(req, res){

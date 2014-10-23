@@ -1,7 +1,7 @@
 /*jshint node:true*/
 
-//require('coffeescript/register');
-//var db = require './db.coffee'
+require('coffee-script/register');
+var db = require './db.coffee'
 
 // app.js
 // This file contains the server side JavaScript code for your application.
@@ -28,8 +28,12 @@ app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}"))
   if( typeof(services['mysql-5.5']) != 'undefined' ){
     res.send('TESET');
+  } else {
+    
   }
 });
+
+//'create table documents(id int not null auto_increment, handle varchar(255), content text, primary key(id), unique key(handle)'
 
 // There are many useful environment variables available in process.env.
 // VCAP_APPLICATION contains useful information about a deployed application.

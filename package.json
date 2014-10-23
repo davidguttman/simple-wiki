@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "description": "A sample nodejs app for Bluemix",
   "dependencies": {
+    "coffee-script": "^1.8.0",
     "express": "3.4.7",
     "jade": "1.1.4",
+    "mysql": "^2.5.2",
     "streamsql": "^0.8.5"
   },
   "engines": {

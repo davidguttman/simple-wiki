@@ -1,3 +1,5 @@
+var fs = require('fs')
+
 /*jshint node:true*/
 
 require('coffee-script/register');
@@ -24,6 +26,29 @@ app.set('views', __dirname + '/views'); //optional since express defaults to CWD
 app.get('/', function(req, res){
 	res.render('index');
 });
+
+app.get('/api/documents', function(req, res) {
+  var data = [
+      'Two Bit Circus'
+    , 'Brent Bushnell'
+    , 'Eric Gradman'
+    , 'Dan Busby'
+    , 'Hector Alvarez'
+  ]
+  res.json(data)
+})
+
+app.get('/api/documents/:name', function(req, res) {
+  if (req.params.name !== 'Two Bit Circus') {
+    res.json({})
+  } else {
+    fs.readFile(__dirname + '/2bc.md', function(err, buf) {
+      var data = {markdown: buf.toString()}
+      res.json(data)
+    })
+  }
+
+})
 
 app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}");

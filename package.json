@@ -1,16 +1,47 @@
 {
-  "name": "NodejsStarterApp",
+  "name": "simple-wiki",
   "version": "0.0.1",
-  "description": "A sample nodejs app for Bluemix",
+  "description": "A simple wiki",
   "dependencies": {
-    "coffee-script": "^1.8.0",
+    "bunyan": "^1.2.0",
+    "director": "^1.2.3",
     "express": "3.4.7",
     "jade": "1.1.4",
+    "marked": "^0.3.2",
+    "mercury": "^8.0.0",
+    "superagent": "^0.20.0",
+    "coffee-script": "^1.8.0",
     "mysql": "^2.5.2",
     "streamsql": "^0.8.5"
   },
   "engines": {
     "node": "0.10.26"
   },
-  "repository": {}
+  "repository": {},
+  "main": "app.js",
+  "devDependencies": {
+    "browser-sync": "^1.5.8",
+    "browserify": "^6.1.0",
+    "coffeeify": "^0.7.0",
+    "sassify": "^0.5.1",
+    "supervisor": "^0.6.0",
+    "watchify": "^2.0.0"
+  },
+  "scripts": {
+    "build": "npm run build-js",
+    "build-js": "browserify client/entry.coffee | uglifyjs -mc > public/main.js",
+    "dev": "(npm run watch-all | bunyan) & (npm run browsersync)",
+    "watch-all": "npm run watch-js & npm run watch-server",
+    "watch-js": "watchify client/entry.coffee -o public/main.js -dv",
+    "watch-server": "supervisor -n exit -i public,client -e js,coffee app.js",
+    "browsersync": "bin/browsersync"
+  },
+  "author": "David Guttman <david@guttman.io> (http://davidguttman.com/)",
+  "license": "MIT",
+  "browserify": {
+    "transform": [
+      "coffeeify",
+      "sassify"
+    ]
+  }
 }

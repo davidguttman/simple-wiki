@@ -13,6 +13,7 @@ var express = require('express');
 // setup middleware
 var app = express();
 app.use(app.router);
+app.use(express.bodyParser);
 app.use(express.json())
 app.use(express.errorHandler());
 app.use(express.static(__dirname + '/public')); //setup static public directory
@@ -33,6 +34,7 @@ app.get('/services', function(req, res){
   }
 });
 
+
 //'create table documents(id int not null auto_increment, handle varchar(255), content text, primary key(id), unique key(handle)'
 
 // There are many useful environment variables available in process.env.
@@ -45,6 +47,23 @@ var appInfo = JSON.parse(process.env.VCAP_APPLICATION || "{}");
 // the document or sample of each service.
 var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
 // TODO: Get service credentials and communicate with bluemix services.
+
+if( typeof(services['mysql-5.5']) != 'undefined' ){
+  creds = services['mysql-5.5']['credentials'];
+} else {
+  creds = {};
+}
+
+conn = new db(creds);
+app.get('/api/init', function(req, res){
+  result = db.createTable();
+  res.send(result);
+});
+
+app.post('/api/document/create', function(req, res){
+  data = req.body;
+  db.addDocument(data);
+});
 
 // The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:
 var host = (process.env.VCAP_APP_HOST || 'localhost');

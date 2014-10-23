@@ -10,6 +10,7 @@ var express = require('express');
 // setup middleware
 var app = express();
 app.use(app.router);
+app.use(express.json())
 app.use(express.errorHandler());
 app.use(express.static(__dirname + '/public')); //setup static public directory
 app.set('view engine', 'jade');
@@ -18,6 +19,10 @@ app.set('views', __dirname + '/views'); //optional since express defaults to CWD
 // render index page
 app.get('/', function(req, res){
 	res.render('index');
+});
+
+app.get('/services', function(req, res){
+  res.send(JSON.parse(process.env.VCAP_SERVICES || "{}"))
 });
 
 // There are many useful environment variables available in process.env.

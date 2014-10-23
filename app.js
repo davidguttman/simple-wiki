@@ -65,7 +65,9 @@ app.get('/api/document/create', function(req, res){
   data = {};
   data.handle = "test";
   data.content = "test123";
-  result = conn.createDocument(data);
+  result = conn.createDocument(data, function(err){
+    res.send(err);
+  });
   msg = 'Added ' + result.affectedRows + ' rows.';
   res.send(msg);
 });

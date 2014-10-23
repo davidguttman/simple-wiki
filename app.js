@@ -60,13 +60,14 @@ app.get('/api/init', function(req, res){
   res.send('success?');
 });
 
-app.post('/api/document/create', function(req, res){
+app.get('/api/document/create', function(req, res){
   //data = req.body;
   data = {};
   data.handle = "test";
   data.content = "test123";
-  conn.createDocument(data);
-  res.send('success?');
+  result = conn.createDocument(data);
+  msg = 'Added ' + result.affectedRows + ' rows.';
+  res.send(msg);
 });
 
 app.get('/api/document/get', function(req, res){

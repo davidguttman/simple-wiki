@@ -17,7 +17,7 @@ class wikiDB
 
     @createTable()
 
-  createTable: ->
+  createTable: (cb) ->
     sql = 'CREATE TABLE IF NOT EXISTS documents ('
     sql += 'id INTEGER PRIMARY KEY AUTO_INCREMENT, '
     sql += 'handle varchar(255), '
@@ -26,9 +26,8 @@ class wikiDB
 
     @db.query sql, (err, result) ->
       if err
-        console.log err
-      else
-        return result
+        return cb err
+      cb null, result
 
   createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'

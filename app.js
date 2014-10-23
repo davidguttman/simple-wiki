@@ -56,8 +56,14 @@ if( typeof(services['mysql-5.5']) != 'undefined' ){
 
 conn = new db(creds);
 app.get('/api/init', function(req, res){
-  result = conn.createTable();
-  res.send('success?');
+  result = conn.createTable(function(err, result){
+    if( err ){
+      res.send(err);
+    } else {
+      msg = 'Added ' + result.affectedRows + ' rows.';
+      res.send(msg);
+    }
+  });
 });
 
 app.get('/api/document/create', function(req, res){

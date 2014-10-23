@@ -16,7 +16,6 @@ class wikiDB
       database: creds.name
 
   createTable: (cb) ->
-    console.log data, cb
     sql = 'CREATE TABLE IF NOT EXISTS documents ('
     sql += 'id INTEGER PRIMARY KEY AUTO_INCREMENT, '
     sql += 'handle varchar(255), '

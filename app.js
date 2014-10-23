@@ -85,11 +85,10 @@ app.get('/api/init', function(req, res){
     if( err ){
       res.send(err);
     } else {
-      msg = 'Added ' + result.affectedRows + ' rows.';
+      msg = 'table created'
       res.send(msg);
     }
   });
-  res.send('success?');
 });
 
 app.get('/api/document/create', function(req, res){

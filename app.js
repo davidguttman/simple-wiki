@@ -74,7 +74,7 @@ var services = JSON.parse(process.env.VCAP_SERVICES || "{}");
 // TODO: Get service credentials and communicate with bluemix services.
 
 if( typeof(services['mysql-5.5']) != 'undefined' ){
-  creds = services['mysql-5.5']['credentials'];
+  creds = services['mysql-5.5'][0]['credentials'];
 } else {
   creds = {};
 }

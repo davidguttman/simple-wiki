@@ -81,7 +81,9 @@ if( typeof(services['mysql-5.5']) != 'undefined' ){
 
 conn = new db(creds);
 app.get('/api/init', function(req, res){
-  result = conn.createTable(function(err, result){
+  conn.createTable();
+  /*
+function(err, result){
     if( err ){
       res.send(err);
     } else {
@@ -89,6 +91,8 @@ app.get('/api/init', function(req, res){
       res.send(msg);
     }
   });
+  */
+  res.send('success?');
 });
 
 app.get('/api/document/create', function(req, res){
@@ -96,7 +100,7 @@ app.get('/api/document/create', function(req, res){
   data = {};
   data.handle = "test";
   data.content = "test123";
-  result = conn.createDocument(data, function(err, result){
+  conn.createDocument(data, function(err, result){
     if( err ){
       res.send(err);
     } else {
@@ -110,7 +114,7 @@ app.get('/api/document/get', function(req, res){
   //data = req.body;
   data = {};
   data.handle = "test";
-  result = conn.getDocument(data, function(err, result){
+  conn.getDocument(data, function(err, result){
     if( err ){
       res.send(err);
     } else {

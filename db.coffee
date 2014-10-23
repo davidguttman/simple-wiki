@@ -3,8 +3,7 @@
 mysql = require 'mysql'
 
 module.exports = (creds={}) ->
-  me = new wikiDB(creds)
-  return me
+  return new wikiDB creds
 
 
 class wikiDB
@@ -47,7 +46,6 @@ class wikiDB
         return cb err
       cb null, result
 
-###
   getDocument: (data, cb) ->
     if data?
       sql = 'SELECT * FROM documents WHERE '
@@ -56,9 +54,8 @@ class wikiDB
     else
       sql = 'SELECT * FROM documents'
 
-    @db.query(sql, (err, result) ->
+    @db.query sql, (err, result) ->
       if err
         return cb err
       cb null, result
 
-###

@@ -56,13 +56,13 @@ if( typeof(services['mysql-5.5']) != 'undefined' ){
 
 conn = new db(creds);
 app.get('/api/init', function(req, res){
-  result = db.createTable();
+  result = conn.createTable();
   res.send(result);
 });
 
 app.post('/api/document/create', function(req, res){
   data = req.body;
-  db.addDocument(data);
+  conn.addDocument(data);
 });
 
 // The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:

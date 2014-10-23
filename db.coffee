@@ -15,19 +15,18 @@ class wikiDB
       password: creds.password,
       database: creds.name
 
-    @createTable()
-
-  createTable: () ->
+  createTable: (cb) ->
+    console.log data, cb
     sql = 'CREATE TABLE IF NOT EXISTS documents ('
     sql += 'id INTEGER PRIMARY KEY AUTO_INCREMENT, '
     sql += 'handle varchar(255), '
-    sql += 'content text UNIQUE KEY'
+    sql += 'content text, unique key(handle)'
     sql += ');'
 
     @db.query sql, (err, result) ->
       if err
-        return err
-      return result
+        return cb err
+      cb null, result
 
   createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'

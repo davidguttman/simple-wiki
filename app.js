@@ -81,9 +81,7 @@ if( typeof(services['mysql-5.5']) != 'undefined' ){
 
 conn = new db(creds);
 app.get('/api/init', function(req, res){
-  conn.createTable();
-  /*
-function(err, result){
+  conn.createTable(function(err, result){
     if( err ){
       res.send(err);
     } else {
@@ -91,7 +89,6 @@ function(err, result){
       res.send(msg);
     }
   });
-  */
   res.send('success?');
 });
 

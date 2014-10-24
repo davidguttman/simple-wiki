@@ -73,6 +73,17 @@ class wikiDB
       data.markdown = result[0]?.content
       cb null, data
 
+  deleteDocument: (data, cb) ->
+    if data?
+      sql = 'DELETE FROM documents WHERE '
+      for handle, value of data
+        sql += handle+'="'+value+'"'
+
+      @db.query sql, (err, result) ->
+        if err
+          return cb err
+        cb null, result
+
   getHandles: (cb) ->
     sql = 'SELECT handle FROM documents'
 

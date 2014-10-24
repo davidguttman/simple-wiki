@@ -118,6 +118,22 @@ app.get('/api/wipeall', function(req, res) {
   });
 });
 
+/*
+app.get('/api/documents/:name/delete', function(req, res) {
+  data = {};
+  data.handle = req.params.name;
+  conn.deleteDocument(data, function(err, result){
+    if( err ){
+      res.send(err);
+    } else {
+      msg = req.params.name+' was deleted'
+      res.json({message:msg});
+    }
+  });
+
+});
+*/
+
 app.get('/api/documents/:name', function(req, res) {
   data = {};
   data.handle = req.params.name;

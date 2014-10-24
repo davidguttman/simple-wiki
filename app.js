@@ -29,8 +29,8 @@ app.get('/', function(req, res){
 
 /*
 app.get('/api/documents', function(req, res) {
-  fs.readDir(__dirname + '/md', function(err, files) {
-    var names = files.map(function(file) {file.replace(/\.md$/, '')})
+  fs.readdir(__dirname + '/md', function(err, files) {
+    var names = files.map(function(file) {return file.replace(/\.md$/, '')})
     res.json(names)
   })
 })

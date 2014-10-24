@@ -28,25 +28,21 @@ List::loadDocuments = ->
 
 List::render = (state) ->
   h '.listView', [
-
-    if state.isLoading
-      @renderLoading()
-    else
-      h '.row', [
-        h '.col-xs-12', [
-          h 'h3', 'Simple Wiki'
-          h 'form.listView-search', 
-            'ev-submit': (evt) ->
-              input = evt.target.querySelector('input')
-              window.location.hash = '/'+input.value
-              return false
-          , [
-            h 'input.form-control', placeholder: 'Create'
-          ]
-          h 'br'
-          h 'ul.list-group', state.documents.map @renderDoc.bind(this)
+    h '.row', [
+      h '.col-xs-12', [
+        h 'h3', 'Simple Wiki'
+        h 'form.listView-search', 
+          'ev-submit': (evt) ->
+            input = evt.target.querySelector('input')
+            window.location.hash = '/'+input.value
+            return false
+        , [
+          h 'input.form-control', placeholder: 'Create'
         ]
+        h 'br'
+        h 'ul.list-group', state.documents.map @renderDoc.bind(this)
       ]
+    ]
 
   ]
 

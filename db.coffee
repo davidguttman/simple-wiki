@@ -31,10 +31,11 @@ class wikiDB
     sel = {}
     sel.handle = data.handle
     self = this
-    @getDocument data, (err, callback) ->
+    @getDocument sel, (err, callback) ->
       if err
         self.createDocument data, cb
-      self.updateDocument data, cb
+      else
+        self.updateDocument data, cb
 
   createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'

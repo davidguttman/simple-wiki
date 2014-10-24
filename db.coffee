@@ -34,8 +34,7 @@ class wikiDB
     @getDocument data, (err, callback) ->
       if err
         self.createDocument data, cb
-      else
-        self.updateDocument data, cb
+      self.updateDocument data, cb
 
   createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'

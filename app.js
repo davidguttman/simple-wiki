@@ -27,28 +27,7 @@ app.get('/', function(req, res){
 	res.render('index');
 });
 
-app.get('/api/documents', function(req, res) {
-  var data = [
-      'Two Bit Circus'
-    , 'Brent Bushnell'
-    , 'Eric Gradman'
-    , 'Dan Busby'
-    , 'Hector Alvarez'
-  ]
-  res.json(data)
-})
 
-app.get('/api/documents/:name', function(req, res) {
-  if (req.params.name !== 'Two Bit Circus') {
-    res.json({})
-  } else {
-    fs.readFile(__dirname + '/2bc.md', function(err, buf) {
-      var data = {markdown: buf.toString()}
-      res.json(data)
-    })
-  }
-
-})
 
 app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}");
@@ -91,11 +70,45 @@ app.get('/api/init', function(req, res){
   });
 });
 
+app.get('/api/documents', function(req, res) {
+  conn.getHandles(function(err, result){
+    if( err ){
+      res.send(err);
+    } else {
+      res.json(result)
+    }
+  });
+})
+
+app.get('/api/documents/:name', function(req, res) {
+/*
+  if (req.params.name !== 'Two Bit Circus') {
+    res.json({})
+  } else {
+    fs.readFile(__dirname + '/2bc.md', function(err, buf) {
+      var data = {markdown: buf.toString()}
+      res.json(data)
+    })
+  }
+*/
+
+  data = {};
+  data.handle = req.params.name;
+  conn.getDocument(data, function(err, result){
+    if( err ){
+      res.send(err);
+    } else {
+      res.json(result)
+    }
+  });
+
+})
+
 app.get('/api/document/create', function(req, res){
   //data = req.body;
   data = {};
-  data.handle = "test";
-  data.content = "test123";
+  data.handle = "test2";
+  data.content = "test1231231231";
   conn.createDocument(data, function(err, result){
     if( err ){
       res.send(err);
@@ -106,18 +119,6 @@ app.get('/api/document/create', function(req, res){
   });
 });
 
-app.get('/api/document/get', function(req, res){
-  //data = req.body;
-  data = {};
-  data.handle = "test";
-  conn.getDocument(data, function(err, result){
-    if( err ){
-      res.send(err);
-    } else {
-      res.send(result);
-    }
-  });
-});
 
 // The IP address of the Cloud Foundry DEA (Droplet Execution Agent) that hosts this application:
 var host = (process.env.VCAP_APP_HOST || 'localhost');

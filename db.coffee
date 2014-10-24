@@ -56,3 +56,11 @@ class wikiDB
         return cb err
       cb null, result
 
+  getHandles: (cb) ->
+    sql = 'SELECT handle FROM documents'
+
+    @db.query sql, (err, result) ->
+      if err
+        return cb err
+      cb null, result
+

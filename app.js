@@ -106,7 +106,7 @@ app.get('/api/documents', function(req, res) {
       res.json(result)
     }
   });
-})
+});
 
 app.get('/api/wipeall', function(req, res) {
   conn.clearAll(function(err, result){
@@ -116,7 +116,7 @@ app.get('/api/wipeall', function(req, res) {
       res.send('db wiped');
     }
   });
-})
+});
 
 app.get('/api/documents/:name', function(req, res) {
   data = {};
@@ -129,7 +129,7 @@ app.get('/api/documents/:name', function(req, res) {
     }
   });
 
-})
+});
 
 app.post('/api/documents/:name', function(req, res){
   sent = req.body;

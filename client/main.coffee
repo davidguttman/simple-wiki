@@ -90,6 +90,7 @@ List::render = (state) ->
 
 List::updateMarkdown = (val) ->
   @state.currentMarkdown.set val
+  api.saveDocument @state.currentTitle(), val, ->
 
 List::renderLoading = ->
   img = '/loading.gif'

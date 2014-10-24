@@ -14,9 +14,9 @@ var express = require('express');
 
 // setup middleware
 var app = express();
-app.use(app.router);
-app.use(express.bodyParser());
 app.use(express.json())
+app.use(express.bodyParser());
+app.use(app.router);
 app.use(express.errorHandler());
 app.use(express.static(__dirname + '/public')); //setup static public directory
 app.set('view engine', 'jade');
@@ -47,6 +47,15 @@ app.get('/api/documents/:name', function(req, res) {
 
 })
 */
+
+app.post('/api/documents/:name', function(req, res) {
+  var name = req.params.name
+  var data = req.body || {markdown: ''}
+  fs.writeFile(__dirname + '/md/'+name+'.md', data.markdown, function(err) {
+    if (err) return res.send(500)
+    res.send(200, 'OK')
+  })
+})
 
 app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}");

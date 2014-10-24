@@ -62,5 +62,8 @@ class wikiDB
     @db.query sql, (err, result) ->
       if err
         return cb err
-      cb null, result
+      data = []
+      for row in result
+        data.push row.handle
+      cb null, data
 

@@ -108,6 +108,16 @@ app.get('/api/documents', function(req, res) {
   });
 })
 
+app.get('/api/wipeall', function(req, res) {
+  conn.clearAll(function(err, result){
+    if( err ){
+      res.send(err);
+    } else {
+      res.send('db wiped');
+    }
+  });
+})
+
 app.get('/api/documents/:name', function(req, res) {
   data = {};
   data.handle = req.params.name;

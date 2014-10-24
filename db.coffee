@@ -84,3 +84,11 @@ class wikiDB
         data.push row.handle
       cb null, data
 
+  clearAll: (cb) ->
+    sql = 'DELETE FROM documents'
+
+    @db.query sql, (err, result) ->
+      if err
+        return cb err
+      cb null, data
+

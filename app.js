@@ -46,7 +46,6 @@ app.get('/api/documents/:name', function(req, res) {
   })
 
 })
-*/
 
 app.post('/api/documents/:name', function(req, res) {
   var name = req.params.name
@@ -56,6 +55,7 @@ app.post('/api/documents/:name', function(req, res) {
     res.send(200, 'OK')
   })
 })
+*/
 
 app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}");

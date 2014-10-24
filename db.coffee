@@ -54,7 +54,10 @@ class wikiDB
     @db.query sql, (err, result) ->
       if err
         return cb err
-      cb null, result
+      data = {}
+      data.handle = result[0].handle
+      data.markdown = result[0].content
+      cb null, data
 
   getHandles: (cb) ->
     sql = 'SELECT handle FROM documents'

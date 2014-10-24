@@ -3,6 +3,9 @@ superagent = require 'superagent'
 module.exports = api =
   getAllDocuments: (cb) -> get '/api/documents', cb
   getDocument: (name, cb) -> get '/api/documents/' + name, cb
+  saveDocument: (name, md, cb) ->
+    url = '/api/documents/' + name
+    post url, {markdown: md}, cb
 
 get = (url, cb) ->
   superagent.get(url).end (err, res) ->

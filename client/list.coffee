@@ -31,8 +31,13 @@ List::render = (state) ->
       h '.row', [
         h '.col-xs-12', [
           h 'h3', 'Simple Wiki'
-          h '.listView-search', [
-            h 'input.form-control', placeholder: 'Search'
+          h 'form.listView-search', 
+            'ev-submit': (evt) ->
+              input = evt.target.querySelector('input')
+              window.location.hash = '/'+input.value
+              return false
+          , [
+            h 'input.form-control', placeholder: 'Create'
           ]
           h 'br'
           h 'ul.list-group', state.documents.map @renderDoc.bind(this)

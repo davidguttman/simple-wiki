@@ -24,6 +24,8 @@ module.exports = List = (@el) ->
     @changeDoc getHash()
 
 List::changeDoc = (title) ->
+  return unless title
+
   location.hash = '/' + title
   @state.currentTitle.set title
   @state.isLoading.set true

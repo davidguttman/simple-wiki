@@ -40,11 +40,10 @@ class wikiDB
 
   updateDocument: (data, cb) ->
     sql = 'UPDATE documents SET content="'+data.content+'" WHERE handle="'+data.handle+'"'
-    self = this
   
     @db.query sql, (err, result) ->
       if err
-        self.createDocument data, cb
+        return cb err
       cb null, result
 
   getDocument: (data, cb) ->

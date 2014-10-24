@@ -100,17 +100,6 @@ app.get('/api/documents', function(req, res) {
 })
 
 app.get('/api/documents/:name', function(req, res) {
-/*
-  if (req.params.name !== 'Two Bit Circus') {
-    res.json({})
-  } else {
-    fs.readFile(__dirname + '/2bc.md', function(err, buf) {
-      var data = {markdown: buf.toString()}
-      res.json(data)
-    })
-  }
-*/
-
   data = {};
   data.handle = req.params.name;
   conn.getDocument(data, function(err, result){
@@ -123,11 +112,11 @@ app.get('/api/documents/:name', function(req, res) {
 
 })
 
-app.get('/api/document/create', function(req, res){
-  //data = req.body;
+app.post('/api/documents/:name', function(req, res){
+  sent = req.body;
   data = {};
-  data.handle = "test2";
-  data.content = "test1231231231";
+  data.handle = req.params.name;
+  data.content = sent.markdown;
   conn.createDocument(data, function(err, result){
     if( err ){
       res.send(err);

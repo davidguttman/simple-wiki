@@ -41,7 +41,7 @@ class wikiDB
     sql = 'INSERT INTO documents SET ?'
     insert = {}
     for handle, value of data
-      insert[handle] = @db.escape value
+      insert[handle] = value
   
     @db.query sql, insert, (err, result) ->
       if err

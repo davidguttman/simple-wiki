@@ -55,7 +55,7 @@ List::render = (state) ->
       if state.isEditing
 
         h '.mainView-edit', [
-          h '.mainView-editStatus', [
+          h 'mainView-editStatus.btn-group', [
             h 'button.btn.btn-default.active',
               'ev-click': => @setEdit()
             , 'Edit'
@@ -73,7 +73,7 @@ List::render = (state) ->
       else
 
         h '.mainView-view', [
-          h '.mainView-editStatus', [
+          h '.mainView-editStatus.btn-group', [
             h 'button.btn.btn-default',
               'ev-click': => @setEdit()
             , 'Edit'

@@ -69,8 +69,8 @@ class wikiDB
       if err
         return cb err
       data = {}
-      data.handle = result[0].handle
-      data.markdown = result[0].content
+      data.handle = result[0]?.handle
+      data.markdown = result[0]?.content
       cb null, data
 
   getHandles: (cb) ->

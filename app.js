@@ -126,7 +126,7 @@ app.post('/api/documents/:name', function(req, res){
   data = {};
   data.handle = req.params.name;
   data.content = sent.markdown;
-  conn.createDocument(data, function(err, result){
+  conn.updateDocument(data, function(err, result){
     if( err ){
       res.send(err);
     } else {

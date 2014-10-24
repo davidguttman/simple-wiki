@@ -27,6 +27,16 @@ class wikiDB
         return cb err
       cb null, result
 
+  ###
+  saveDocument: (data, cb) ->
+    sel = {}
+    sel.handle = data.handle
+    self = this
+    @getDocument data, (err, callback) ->
+      if err
+  ###
+        
+
   createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'
     insert = {}

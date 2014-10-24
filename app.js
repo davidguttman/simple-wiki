@@ -15,7 +15,7 @@ var express = require('express');
 // setup middleware
 var app = express();
 app.use(app.router);
-app.use(express.bodyParser);
+app.use(express.bodyParser());
 app.use(express.json())
 app.use(express.errorHandler());
 app.use(express.static(__dirname + '/public')); //setup static public directory
@@ -27,7 +27,26 @@ app.get('/', function(req, res){
 	res.render('index');
 });
 
+/*
+app.get('/api/documents', function(req, res) {
+  fs.readDir(__dirname + '/md', function(err, files) {
+    var names = files.map(function(file) {file.replace(/\.md$/, '')})
+    res.json(names)
+  })
+})
 
+app.get('/api/documents/:name', function(req, res) {
+  fs.readFile(__dirname + '/md/'+req.params.name + '.md', function(err, buf) {
+    if (buf) {
+      var data = {markdown: buf.toString()}
+      res.json(data)
+    } else {
+      res.json({})
+    }
+  })
+
+})
+*/
 
 app.get('/services', function(req, res){
   services = JSON.parse(process.env.VCAP_SERVICES || "{}");

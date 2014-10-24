@@ -9,11 +9,11 @@ module.exports = (creds={}) ->
 class wikiDB
   constructor: (creds) ->
     @db = mysql.createConnection
-      host: creds.host,
-      port: creds.port,
-      user: creds.user,
-      password: creds.password,
-      database: creds.name
+      host: creds.host ? 'localhost'
+      port: creds.port
+      user: creds.user ? 'root'
+      password: creds.password ? undefined
+      database: creds.name ? 'simple-wiki'
 
   createTable: (cb) ->
     sql = 'CREATE TABLE IF NOT EXISTS documents ('

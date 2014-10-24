@@ -14,12 +14,16 @@ module.exports = List = (@el) ->
   mercury.app @el, @state, @render.bind(this)
 
   @loadDocuments()
+  setInterval =>
+    @loadDocuments()
+  , 5000
 
 List::loadDocuments = ->
   @state.isLoading.set true
   api.getAllDocuments (err, docs) =>
     @state.isLoading.set false
-    @state.documents.push doc for doc in docs
+    @state.documents.splice 0, @state.documents.getLength(), docs...
+    # @state.documents.push doc for doc in docs
     # @state.documents.set array docs
 
 List::render = (state) ->

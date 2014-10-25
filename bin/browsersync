@@ -5,6 +5,6 @@ bsport=${BSPORT-9867}
 
 browser-sync start \
   --proxy "localhost:$port" \
-  --files 'public/main.js, public/css/style.css, views/*.jade' \
+  --files 'public/main.js, public/stylesheets/style.css, views/*.jade' \
   --no-open \
   --port $bsport

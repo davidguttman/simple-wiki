@@ -44,6 +44,8 @@ List::setPreview = -> @state.isEditing.set false
 List::render = (state) ->
   h '.mainView.row', [
 
+    @renderModeToggle state
+
     h '.mainView-header', [
       h 'h1', state.currentTitle
     ]
@@ -55,14 +57,6 @@ List::render = (state) ->
       if state.isEditing
 
         h '.mainView-edit', [
-          h 'mainView-editStatus.btn-group', [
-            h 'button.btn.btn-default.active',
-              'ev-click': => @setEdit()
-            , 'Edit'
-            h 'button.btn.btn-default',
-              'ev-click': => @setPreview()
-            , 'Preview'
-          ]
 
           h 'textarea.form-control',
             'ev-change': (evt) => @updateMarkdown evt.target.value
@@ -73,15 +67,6 @@ List::render = (state) ->
       else
 
         h '.mainView-view', [
-          h '.mainView-editStatus.btn-group', [
-            h 'button.btn.btn-default',
-              'ev-click': => @setEdit()
-            , 'Edit'
-
-            h 'button.btn.btn-default.active',
-              'ev-click': => @setPreview()
-            , 'Preview'
-          ]
 
           h '.markdown', [
             h '', innerHTML: parseMarkdown state.currentMarkdown
@@ -102,6 +87,17 @@ List::renderLoading = ->
       position: 'absolute'
       top: 10
       right: 10
+
+List::renderModeToggle = (state) ->
+  renderBtn = (text, active, onClick) ->
+    el = 'button.btn.btn-default'
+    el += '.active' if active
+    h el, 'ev-click': onClick, text
+
+  h '.mainView-editStatus.btn-group', [
+    renderBtn 'View', !state.isEditing, @setPreview.bind(this)
+    renderBtn 'Edit', state.isEditing, @setEdit.bind(this)
+  ]
 
 getHash = ->
   location.hash.replace /^#\//, ''

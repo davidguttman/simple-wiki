@@ -1,19 +1,25 @@
-
-
 mysql = require 'mysql'
+streamsql = require 'streamsql'
 
 module.exports = (creds={}) ->
   return new wikiDB creds
 
-
 class wikiDB
   constructor: (creds) ->
-    @db = mysql.createConnection
+    @db = streamsql.connect
+      driver: 'mysql'
       host: creds.host ? 'localhost'
       port: creds.port
       user: creds.user ? 'root'
       password: creds.password ? undefined
       database: creds.name ? 'simple-wiki'
+
+    @documents = @db.table 'documents',
+      fields: [
+        'id'
+        'handle'
+        'content'
+      ]
 
   createTable: (cb) ->
     sql = 'CREATE TABLE IF NOT EXISTS documents ('
@@ -22,20 +28,13 @@ class wikiDB
     sql += 'content text, unique key(handle)'
     sql += ');'
 
-    @db.query sql, (err, result) ->
-      if err
-        return cb err
-      cb null, result
+    @db.query sql, cb
 
   saveDocument: (data, cb) ->
     sel = {}
     sel.handle = data.handle
     self = this
-    @getDocument sel, (err, callback) ->
-      if err
-        self.createDocument data, cb
-      else
-        self.updateDocument data, cb
+    @documents.put data, {uniqueKey: 'handle'}, cb
 
   createDocument: (data, cb) ->
     sql = 'INSERT INTO documents SET ?'
@@ -58,20 +57,12 @@ class wikiDB
       cb null, result
 
   getDocument: (data, cb) ->
-    if data?
-      sql = 'SELECT * FROM documents WHERE '
-      for handle, value of data
-        sql += handle+'="'+value+'"'
-    else
-      sql = 'SELECT * FROM documents'
-
-    @db.query sql, (err, result) ->
-      if err
-        return cb err
-      data = {}
-      data.handle = result[0]?.handle
-      data.markdown = result[0]?.content
-      cb null, data
+    @documents.getOne data, (err, result) ->
+      return cb err if err
+      out = {}
+      out.name = result?.handle
+      out.markdown = result?.content
+      cb null, out
 
   deleteDocument: (data, cb) ->
     if data?

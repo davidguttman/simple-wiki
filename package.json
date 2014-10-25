@@ -4,15 +4,15 @@
   "description": "A simple wiki",
   "dependencies": {
     "bunyan": "^1.2.0",
+    "coffee-script": "^1.8.0",
     "director": "^1.2.3",
     "express": "3.4.7",
     "jade": "1.1.4",
     "marked": "^0.3.2",
     "mercury": "^8.0.0",
-    "superagent": "^0.20.0",
-    "coffee-script": "^1.8.0",
     "mysql": "^2.5.2",
-    "streamsql": "^0.8.5"
+    "streamsql": "^0.8.5",
+    "superagent": "^0.20.0"
   },
   "engines": {
     "node": "0.10.26"
